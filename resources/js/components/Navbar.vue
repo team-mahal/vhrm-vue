@@ -10,49 +10,62 @@
                         <path d="M12.9 14.32a8 8 0 1 1 1.41-1.41l5.35 5.33-1.42 1.42-5.33-5.34zM8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"></path>
                     </svg>
                 </div>
-
                 <input id="search-toggle" type="search" placeholder="search" class="block w-full bg-gray-200 focus:outline-none focus:bg-white focus:shadow-md text-gray-700 font-bold rounded-full pl-12 pr-4 py-3" onkeyup="updateSearchResults(this.value);">
-
             </div>
             <!-- / Search-->
             
             <div v-if="user">
-                <div v-if="user.attendance">
+                <div v-if="user.attendance && user.attendance.length==0">
                     <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-4 rounded" @click="fatchuser">Check in</button>
                 </div>
                 <div v-else>
-                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded">Check Out</button>
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded" @click="fatchuser">Check Out</button>
                 </div>
             </div>
 
-            <t-modal ref="modal" class="curdmodel">
-                <form class="bg-white rounded px-8 pt-6 pb-8 mb-4" @submit.prevent="storeOrUpdate" @keydown="form.onKeydown($event)">
-                    {{ user }}
-                    
-                     <div class="mb-4">
+            <t-modal ref="modal" class="curdmodel" v-if="user">
+                    <div class="mb-4">
                         <label class="block text-gray-700 text-sm font-bold mb-2">
                             Username
                         </label>
-                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" v-model="user.name" type="text" placeholder="Issue Title" disabled>
+                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" v-model="user.name" type="text" disabled>
                     </div>
 
                     <div class="mb-4">
                         <label class="block text-gray-700 text-sm font-bold mb-2">
                             Today's Date
                         </label>
-                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" v-model="user.name" type="text" placeholder="Issue Title" disabled>
+                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" v-model="date" type="text" disabled>
                     </div>
 
                     <div class="mb-4">
                         <label class="block text-gray-700 text-sm font-bold mb-2">
                             Remarks
                         </label>
-                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" v-model="user.name" type="text" placeholder="Issue Title" disabled>
+                        <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" v-model="remarks" type="text">
+                    </div>
+                    
+                    <div class="flex" v-if="user.attendance && user.attendance.length>0">
+                        <p class="p-2">Today's Check In</p>
+                        <h2 class="p-2">{{ user.attendance[0].intime }} ({{ user.attendance[0].status }})</h2>
+                    </div>
+
+                     <div class="flex" v-if="user.attendance && user.attendance[0].outtime">
+                        <p class="p-2">Today's Check Out</p>
+                        <h2 class="p-2">{{ user.attendance[0].outtime }}</h2>
                     </div>
 
 
                     <Clock/>
-                </form>
+
+                    <div v-if="user.attendance && user.attendance.length==0">
+                        <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-4 rounded" @click="checkin">Check in</button>
+                    </div>
+                    
+                    <div v-else-if="!user.attendance[0].outtime">
+                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded" @click="checkout">Check Out</button>
+                    </div>
+
             </t-modal>
 
             <!--Menu-->
@@ -114,6 +127,8 @@
 import { mapGetters } from 'vuex'
 import LocaleDropdown from './LocaleDropdown'
 import Clock from './Clock'
+import axios from 'axios';
+import Swal from 'sweetalert2'
 
 export default {
 	components: {
@@ -124,6 +139,8 @@ export default {
 	data: () => ({
 		appName: window.config.appName,
         activeClass: false,
+        remarks:'',
+        date:new Date().toLocaleDateString("en-US")
 	}),
 
 	computed: mapGetters({
@@ -132,6 +149,38 @@ export default {
 	}),
 
 	methods: {
+        async checkin(){
+            let { data } = await axios.post('/api/checkin',{ 
+                                                user_id:this.user.id,
+                                                date:this.date,
+                                                remarks:this.remarks,
+                                                intime:new Date(Date.now()).toLocaleTimeString("en-US")
+                                            })
+            Swal.fire({
+              type: 'success',
+              title: "Check in SuccessFully",
+              reverseButtons: true,
+              confirmButtonText:'ok',
+              cancelButtonText: 'cancel'
+            })
+
+            await this.$store.dispatch('auth/fetchUser')
+
+        },
+        async checkout(){
+            let { data } = await axios.post('/api/checkout/'+this.user.attendance[0].id,{ 
+                                                outtime:new Date(Date.now()).toLocaleTimeString("en-US")
+                                            })
+            Swal.fire({
+              type: 'success',
+              title: "Check Out SuccessFully",
+              reverseButtons: true,
+              confirmButtonText:'ok',
+              cancelButtonText: 'cancel'
+            })
+
+            await this.$store.dispatch('auth/fetchUser')
+        },
         fatchuser(){
             this.$refs.modal.show()
         },

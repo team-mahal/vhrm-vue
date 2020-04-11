@@ -77,7 +77,6 @@ Route::group([
 
     Route::post('issues/statusupdate', 'Admin\IssueController@statusupdate');
 
-
     Route::resource('issuecomment', 'Admin\IssuecommentController');
     Route::resource('comment', 'Admin\CommentController');
 
@@ -88,7 +87,6 @@ Route::group([
     Route::resource('departments', 'Admin\DepartmentController')->except([
         'show', 'edit'
     ]);
-
 
     Route::get('departments/all', 'Admin\DepartmentController@all');
 
@@ -118,4 +116,6 @@ Route::group([
 
     Route::get('statuses/all', 'Admin\StatusController@all');
     Route::get('users', 'Settings\ProfileController@users');
+    Route::post('checkin', 'Settings\ProfileController@checkin');
+    Route::post('checkout/{attendance}', 'Settings\ProfileController@checkout');
 }); // this should be the absolute last line of this file

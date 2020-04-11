@@ -8,7 +8,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
+use Carbon\Carbon;
 class User extends Authenticatable implements JWTSubject //, MustVerifyEmail
 {
     use Notifiable;
@@ -114,6 +114,6 @@ class User extends Authenticatable implements JWTSubject //, MustVerifyEmail
 
     public function attendance()
     {
-        return $this->hasMany("App\Models\Attendance")->where('date',date('Y-m-d'));
+        return $this->hasMany("App\Models\Attendance")->whereDate('created_at',Carbon::today());
     }
 }

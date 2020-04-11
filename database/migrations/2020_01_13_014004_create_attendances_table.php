@@ -17,7 +17,9 @@ class CreateAttendancesTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->text('remarks');
             $table->date('date');
-            $table->time('time');
+            $table->time('intime');
+            $table->time('outtime');
+            $table->enum('status', ['present','latepresent']);
             $table->timestamps();
         });
     }

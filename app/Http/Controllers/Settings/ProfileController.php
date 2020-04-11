@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Settings;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
+use App\Models\Attendance;
 class ProfileController extends Controller
 {
     /**
@@ -28,5 +29,23 @@ class ProfileController extends Controller
     public function users()
     {
         return User::all();
+    }
+
+    public function checkin(Request $request)
+    {
+        return Attendance::create([
+            'user_id'=>$request->user_id,
+            'remarks'=>$request->remarks,
+            'date'=>$request->date,
+            'status'=>'present',
+            'intime'=>$request->intime,
+        ]);
+    }
+
+    public function checkout(Attendance $attendance,Request $request)
+    {
+        $attendance->outtime=$request->outtime;
+        $attendance->save();
+        return 'success';
     }
 }
