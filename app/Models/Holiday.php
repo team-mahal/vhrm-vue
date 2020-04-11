@@ -11,9 +11,7 @@ class Holiday extends Model
      *
      * @var array
      */
-    protected $fillable = [
-        'date'
-    ];
+    protected $guarded = [];
 
     /*
     |--------------------------------------------------------------------------

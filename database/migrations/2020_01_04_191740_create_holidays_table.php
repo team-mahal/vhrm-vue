@@ -19,7 +19,9 @@ class CreateHolidaysTable extends Migration
             $table->string('title');
             $table->text('desc');
             $table->enum('type', ['Public','Private','General','Weekend']);
-            $table->date('date');
+            $table->date('start');
+            $table->date('end');
+            $table->integer('created_by');
             $table->timestamps();
         });
     }
