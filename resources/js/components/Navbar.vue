@@ -50,7 +50,7 @@
                         <h2 class="p-2">{{ user.attendance[0].intime }} ({{ user.attendance[0].status }})</h2>
                     </div>
 
-                     <div class="flex" v-if="user.attendance && user.attendance[0].outtime">
+                     <div class="flex" v-if="user.attendance[0] && user.attendance[0].outtime">
                         <p class="p-2">Today's Check Out</p>
                         <h2 class="p-2">{{ user.attendance[0].outtime }}</h2>
                     </div>

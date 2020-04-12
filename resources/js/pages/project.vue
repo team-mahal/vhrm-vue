@@ -17,7 +17,6 @@
                         :options="clients"
                         :class="{'is-invalid': form.errors.has(name)}"
                         class="w-full"/>
-
                     <t-input 
                         v-else 
                         v-model="form[name]" 

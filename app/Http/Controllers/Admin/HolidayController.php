@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Models\Holiday;
+use JamesDordoy\LaravelVueDatatable\Http\Resources\DataTableCollectionResource;
 
 class HolidayController extends Controller
 {
@@ -14,12 +15,29 @@ class HolidayController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $holidays = Holiday::paginate(20);
-        return response()->json([
-            'holidays' => $holidays
+        $length = $request->input('length');
+        $sortBy = $request->input('column');
+        $orderBy = $request->input('dir');
+        $searchValue = $request->input('search');
+        
+        $query = Holiday::eloquentQuery(
+            $sortBy, 
+            $orderBy, 
+            $searchValue, [
+            'name',
         ]);
+
+        $data = $query->paginate($length);
+        
+        return new DataTableCollectionResource($data);
+    }
+
+     public function create()
+    {
+        $project=new Holiday();
+        return response($project->getTableColumns());
     }
 
     /**
