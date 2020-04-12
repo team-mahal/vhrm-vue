@@ -20,9 +20,6 @@
 					</draggable>
 				</div>
 			</vue-scroll>
-			<div v-if="isadd==statu.id">
-				<textarea name="" id="" cols="30" class="form-control" rows="2" v-on:keyup.enter="submit"></textarea>
-			</div>
 			<button class="btn btn-block btn-success" slot="footer" @click="addPeople(statu.id)">Add</button>
 		</div>
 	</div>
@@ -68,11 +65,75 @@
 			</div>
 		</div>
     </t-modal>
+
+    <t-modal ref="modal1" class="curdmodel">
+		<form class="bg-white rounded px-8 pt-6 pb-8 mb-4" @submit.prevent="create" @keydown="form.onKeydown($event)">
+			<div>
+				<multiselect 
+					v-model="form.issue_id" 
+					:options="issues" 
+					@search-change="asyncFind" 
+					@select="fatchtask" 
+					:loading="isLoading"
+					:hide-selected="true"
+					:searchable="true"
+					label="title"
+					track-by="title"
+					placeholder="Search Issue"
+				>
+					<template slot="clear" slot-scope="props">
+				      	<div class="multiselect__clear absolute " v-if="form.value" @mousedown.prevent.stop="clearAll(props.search)">❌</div>
+				    </template>
+				</multiselect>
+				<has-error :form="form" field="value" class="mt-2 text-red-600 text-left font-semibold" />
+			</div>
+			<div>
+				<label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+			        Title *
+			    </label>
+				<input v-model="form.name" class="w-full t-input t-input-size-default t-input-status-default border block rounded p-2 bg-white" placeholder="Title">
+				<has-error :form="form" field="name" class="mt-2 text-red-600 text-left font-semibold" />
+			</div>
+		    <div>
+		    	<label class="block text-gray-700 text-sm font-bold mb-2" for="grid-state">
+		        	Details *
+		      	</label>
+				<textarea v-model="form.desc" type="text" class="w-full t-input t-input-size-default t-input-status-default border block rounded p-2 bg-white" placeholder="Details">
+				</textarea>
+			    <has-error :form="form" field="desc" class="mt-2 text-red-600 text-left font-semibold" />
+		    </div>
+		    <div>
+		    	<label class="block text-gray-700 text-sm font-bold mb-2" for="grid-state">
+		        	Person *
+		      	</label>
+		    	<multiselect 
+					v-model="form.user_id" 
+					:options="users" 
+					:hide-selected="true"
+					:searchable="true"
+					label="name"
+					track-by="name"
+					:multiple="false"
+					placeholder="Search Project"
+					>
+						
+					</multiselect>
+					<has-error :form="form" field="user" class="mt-2 text-red-600 text-left font-semibold" />
+		    </div>
+		    <div class="text-right mt-2">
+		    	<v-button :loading="form.busy">
+					Submit
+				</v-button>
+		    </div>
+		</form>
+    </t-modal>
+
 </vue-scroll>
 </template>
 <script>
 import draggable from "vuedraggable";
 import axios from 'axios';
+import Form from 'vform'
 import { mapGetters } from 'vuex'
 export default {
     middleware: 'auth',
@@ -84,13 +145,24 @@ export default {
 	},
 	data() {
 		return {
+		    isLoading: false,
 			comment:'',
 			status:[],
+		    issues:[],
 			statu1:[],
+		    users:[],
 			status_id:0,
 			isadd:false,
 			element:[],
 			singletask:[],
+			form: new Form({
+		    	issue_id: null,
+		    	user_id:[],
+		    	name:'',
+		    	desc:'',
+		    	status_id:0,
+
+			}),
 		};
 	},
 	computed:{ 
@@ -102,6 +174,16 @@ export default {
   		},
   	},
 	methods: {
+		async create (){
+			const { data } = await this.form.post('api/tasks')
+			let index = this.status.findIndex(item =>item.id==data.status_id)
+			this.status[index].tasks.push(data)
+  			this.$refs.modal1.hide()
+	  	},
+		async fatchtask(issue){
+	    	let res = await axios.get('api/taskforissue/'+issue.id)
+	    	this.tasks=res.data;
+    	},
 		async createcommment(e){
 	  		if (e.keyCode === 13) {
 	  			this.singletask.comments.push({comment:this.comment,user:this.authuser});
@@ -113,15 +195,23 @@ export default {
 	  			this.comment=''
 	  		}
 	  	},
+	  	async asyncFind(query){
+	    	var self = this;
+	    	if(query.length>0){
+		    	this.isLoading = true
+		    	let res = await axios.get('api/issuesearch/'+query)
+		    	this.issues = res.data
+		    	this.isLoading = false
+	    	}
+	    },
 		async fetchstatus(id){
 			const { data } = await axios.get('api/tasks/'+id)
 			this.singletask=data
-			console.log(data);
   			this.$refs.modal.show()
 		},
 		addPeople(id){
-			console.log();
-			this.isadd=id;
+			this.form.status_id=id;
+  			this.$refs.modal1.show()
 		},
 		submit(e){
 			var self = this;
@@ -179,7 +269,9 @@ export default {
 			}
 		}
 	},
-	created(){
+	async created(){
+		let res = await axios.get('api/users/')
+	    this.users = res.data
 		var self = this;
 		axios.get('api/status').then((red)=>{
 			self.status=red.data

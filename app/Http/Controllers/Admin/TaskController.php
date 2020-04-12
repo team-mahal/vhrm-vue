@@ -58,16 +58,15 @@ class TaskController extends Controller
             $pos = 1;
         }
 
-
         $task = Task::create([
             'name' => $request->name,
             'desc' => $request->desc,
-            'user_id' => $request->issue_id['id'],
+            'user_id' => $request->user_id['id'],
             'issue_id' => $request->issue_id['id'],
             'start_date' => date("Y-m-d"),
             'end_date' => date("Y-m-d"),
             'pos' => $pos,
-            'status_id' => 1,
+            'status_id' =>  $request->status_id ? $request->status_id : 1,
             'created_by' => auth()->user()->id
         ]);
         return $task;
