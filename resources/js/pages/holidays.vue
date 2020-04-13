@@ -40,8 +40,6 @@
                         <option :value="dd.id" v-for="dd in value.options">{{ dd.name }}</option>
                     </select>
 
-
-
                     <has-error :form="form" :field="name" class="mt-2 text-red-600 text-left font-semibold" />
                 </div>
                 <div class="mt-3 text-right">

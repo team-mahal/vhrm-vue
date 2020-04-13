@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Holiday;
 use JamesDordoy\LaravelVueDatatable\Http\Resources\DataTableCollectionResource;
 use App\User;
+use App\Models\Department;
 class HolidayController extends Controller
 {
     /**
@@ -36,12 +37,17 @@ class HolidayController extends Controller
 
     public function create()
     {
+        $a = ['id' => 'Public', 'name'=>'Public'];
+        $b = ['id' => 'Private', 'name'=>'Publasic'];
+        $c = ['id' => 'General', 'name'=>'General'];
+        $d = ['id' => 'Weekend', 'name'=>'Weekend'];
+
         $columns = [
-            'department_id'=>['type'=>'select','options'=>User::all()],
+            'department_id'=>['type'=>'select','options'=>Department::all()],
             'user_id'=>['type'=>'select','options'=>User::all()],
             'title'=>['type'=>'text'],
             'desc'=>['type'=>'textarea'],
-            'type'=>['type'=>'select','options'=>User::all()],
+            'type'=>['type'=>'select','options'=>[$a,$b,$c,$d]],
             'start_date'=>['type'=>'date'],
             'end_date'=>['type'=>'date'],
         ];
