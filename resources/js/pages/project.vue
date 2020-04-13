@@ -194,17 +194,6 @@ export default {
                 }
             }
         },
-        async fetchClients() {
-            const response = await axios.get('/api/clients/all', {status: 1});
-            if (response.status === 200) {
-                this.clients = await response.data.map((client) => {
-                    return {
-                        value: client.id,
-                        text: client.name
-                    }
-                });
-            }
-        },
         async displayRow(data) {
             this.updateData = true;
             this.$refs.modal.show();

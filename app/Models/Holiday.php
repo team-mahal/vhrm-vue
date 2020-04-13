@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use JamesDordoy\LaravelVueDatatable\Traits\LaravelVueDatatableTrait;
-
 class Holiday extends Model
 {
 
@@ -70,13 +69,5 @@ class Holiday extends Model
             ],
         ],
     ];
-
-    protected $columns = [
-        'department_id'=>'','user_id'=>'','title'=>'','desc'=>'','type'=>'','start_date'=>'','end_date'=>'',
-    ];
-
-    public function getTableColumns() {
-        return $this->columns;;
-    }
 
 }

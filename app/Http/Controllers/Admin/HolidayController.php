@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Models\Holiday;
 use JamesDordoy\LaravelVueDatatable\Http\Resources\DataTableCollectionResource;
-
+use App\User;
 class HolidayController extends Controller
 {
     /**
@@ -34,10 +34,18 @@ class HolidayController extends Controller
         return new DataTableCollectionResource($data);
     }
 
-     public function create()
+    public function create()
     {
-        $project=new Holiday();
-        return response($project->getTableColumns());
+        $columns = [
+            'department_id'=>['type'=>'select','options'=>User::all()],
+            'user_id'=>['type'=>'select','options'=>User::all()],
+            'title'=>['type'=>'text'],
+            'desc'=>['type'=>'textarea'],
+            'type'=>['type'=>'select','options'=>User::all()],
+            'start_date'=>['type'=>'date'],
+            'end_date'=>['type'=>'date'],
+        ];
+        return response($columns);
     }
 
     /**

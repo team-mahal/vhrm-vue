@@ -11,17 +11,37 @@
                 <h2 class="mb-2">{{ updateData ? 'Update' : 'Create' }} Project</h2>
                 <div class="my-1" v-for="(value,name, index) in form.originalData" :key="index">
                     <p class="capitalize font-semibold"> {{ name }}</p>
-                    <t-select 
-                        v-if="name === 'client'"
-                        v-model="form[name+'_id']"
-                        :options="clients"
-                        :class="{'is-invalid': form.errors.has(name)}"
-                        class="w-full"/>
-                    <t-input 
-                        v-else 
+
+                    <t-input
+                        v-if="value.type=='text'"
                         v-model="form[name]" 
                         :class="{ 'is-invalid': form.errors.has(name) }" 
                         class="w-full"/>
+
+                    <t-input
+                        v-if="value.type=='date'"
+                        v-model="form[name]" 
+                        type="date"
+                        :class="{ 'is-invalid': form.errors.has(name) }" 
+                        class="w-full"/>
+
+                    <t-textarea
+                        v-if="value.type=='textarea'"
+                        v-model="form[name]" 
+                        :class="{ 'is-invalid': form.errors.has(name) }" 
+                        class="w-full"/>
+
+                    <select
+                        class="block appearance-none w-full border pr-8 rounded leading-tight p-3 bg-white"
+                        v-if="value.type=='select'"
+                        v-model="form[name]" 
+                        :class="{ 'is-invalid': form.errors.has(name) }" 
+                    >
+                        <option :value="dd.id" v-for="dd in value.options">{{ dd.name }}</option>
+                    </select>
+
+
+
                     <has-error :form="form" :field="name" class="mt-2 text-red-600 text-left font-semibold" />
                 </div>
                 <div class="mt-3 text-right">
@@ -29,6 +49,8 @@
                       {{ updateData ? 'Update' : 'Create' }}
                     </button>
                 </div>
+    
+
             </div>
         </form>
     </t-modal>
@@ -72,9 +94,7 @@ export default {
             updateData: false,
             isLoading: false,
             form: new Form({
-                name: '',
-                id: '',
-                client_id: {},
+
             }),
             clients: [],
             columns: [
