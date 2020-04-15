@@ -160,7 +160,10 @@
 	   	<hr>
       	<h2 class="text-indigo-500">
 		  <div class="dropdown inline-block relative">
-		    <svg class="fill-current h-4 w-4 inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/> </svg>{{ singleissue.title }}
+		    <svg class="fill-current h-4 w-4 inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+		    	<path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+		    </svg>
+		    	{{ singleissue.title }}
 		    <ul class="dropdown-menu absolute hidden text-gray-700 pt-1">
 		      <li class="" v-for="st in status" @click="statusupdate(st.id)">
 		      	<a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">{{ st.name }}</a>
@@ -255,6 +258,10 @@ export default {
 													    desc: value,
 													    _method: 'patch'
 													})
+  			let index = this.issues.findIndex((item)=>{
+  				return item.id==data.id; 
+  			})
+  			this.issues[index] = data;
   			this.singleissue=data
   		},
 	  	textUpdated: function(text){

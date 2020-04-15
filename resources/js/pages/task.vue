@@ -1,6 +1,7 @@
 <template>
+<div>
 <vue-scroll>
-	<div class="flex px-4 pb-8 items-start"> 
+	<div class="flex px-4 pb-8 items-start" style="width: auto;overflow: hidden;"> 
 		<div v-for="statu in status" class="rounded shadow p-2 flex-no-shrink w-auto p-2 mr-3"  style="min-width: 293px!important;">
 			<div class="flex justify-between py-1">
                 <h3 class="text-sm">{{ statu.name }}</h3>
@@ -23,7 +24,7 @@
 			<button class="btn btn-block btn-success" slot="footer" @click="addPeople(statu.id)">Add</button>
 		</div>
 	</div>
-
+</vue-scroll>
 	<t-modal ref="modal" class="curdmodel" v-if="singletask">
 	   	<p>IT Lab Solutions Ltd</p>
 	   	<hr>
@@ -128,7 +129,7 @@
 		</form>
     </t-modal>
 
-</vue-scroll>
+</div>
 </template>
 <script>
 import draggable from "vuedraggable";
@@ -284,7 +285,8 @@ export default {
 		height: auto!important;
 	}
 	.fixed-height{
-		max-height: 70vh;
+		min-height: 77vh;
+		max-height: 77vh;
 	}
 	.modal-backdrop{
 		    opacity: .1!important;

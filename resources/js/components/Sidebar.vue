@@ -33,7 +33,7 @@
         </ul>
     </div>
     
-    <div v-else id="sidebar" class="h-screen w-64 menu bg-white text-white px-0 md:px-4 flex nunito static fixed shadow">
+    <div v-else id="sidebar" class="h-screen w-64 menu bg-white text-white px-0 flex nunito static fixed shadow">
         <ul class="list-reset w-full">
             <li class="relative">
                <div class="absolute z-20 posation cursor-pointer" @click="taggleview()">
@@ -147,6 +147,10 @@
 </script>
 
 <style>
+    .router-link-active{
+        background: #f1f1f1;
+        border-right: 2px solid red;
+    }
     .posation{
         right: -5%;
         top: 21px;
