@@ -99,61 +99,60 @@
 		    </div>
 		</form>
 	</div>
+		
 
 	<div class="flex-initial w-full m-2 shadow-md bg-white">
 		<h2 class="font-bold bg-blue-700 p-2 text-white">Issue Lists</h2>
-		<vue-scroll>
-			<div class="h-0">
-				<table class="w-full bg-white" v-if="issues">
-				   <tbody>
-				   		<tr>
-				   			<th class="p-1 border border-gray-200 text-sm text-left">NO</th>
-				   			<th class="p-1 border border-gray-200 text-sm text-left">Status</th>
-				   			<th class="p-1 border border-gray-200 text-sm text-left">Creation</th>
-				   			<th class="p-1 border border-gray-200 text-sm text-left">Issue Title</th>
-				   			<th class="p-1 border border-gray-200 text-sm text-left">Issue Details</th>
-				   		</tr>
-		                <tr v-for="(issue,index) in issues.slice().reverse()" @click="fatchdata(issue.id)" class="cursor-pointer">
-		                    <td class="p-1 border border-gray-200 text-sm">
-		                        {{ index+1 }}
-		                    </td>
-		                    <td class="p-1 border border-gray-200 text-sm">
-		                        <span class="bg-gray-500 text-white p-1 capitalize rounded" v-if="statuss(issue.status_id)=='Pending'">
-		                        	{{ statuss(issue.status_id) }}
-		                    	</span>
-		                        <span class="bg-gray-600 text-white p-1 capitalize rounded" v-if="statuss(issue.status_id)=='In Progress'">
-		                        	{{ statuss(issue.status_id) }}
-		                    	</span>
-		                        <span class="bg-gray-700 text-white p-1 capitalize rounded" v-if="statuss(issue.status_id)=='Pause'">
-		                        	{{ statuss(issue.status_id) }}
-		                        </span>
-		                        <span class="bg-gray-800 text-white p-1 capitalize rounded" v-if="statuss(issue.status_id)=='Stop'">
-		                        	{{ statuss(issue.status_id) }}
-		                        </span>
-		                        <span class="bg-indigo-500 text-white p-1 capitalize rounded" v-if="statuss(issue.status_id)=='Done'">
-		                        	{{ statuss(issue.status_id) }}
-		                        </span>
-		                        <span class="bg-indigo-600 text-white p-1 capitalize rounded" v-if="statuss(issue.status_id)=='Checked'">
-		                        	{{ statuss(issue.status_id) }}
-		                        </span>
-		                        <span class="bg-indigo-700 text-white p-1 capitalize rounded" v-if="statuss(issue.status_id)=='Completed'">
-		                        	{{ statuss(issue.status_id) }}
-		                        </span>
-		                    </td>
-		                    <td class="p-1 border border-gray-200 text-sm">
-		                        {{ issue.created_at }}
-		                    </td>
-		                    <td class="p-1 border border-gray-200 text-sm">
-		                        {{ issue.title }}
-		                    </td>
-		                    <td class="p-1 border border-gray-200 text-sm">
-		                        {{ issue.desc }}
-		                    </td>
-		                </tr>
-		            </tbody>
-		        </table>
-	        </div>
-    	</vue-scroll>
+		<div class="h-0">
+			<table class="w-full bg-white" v-if="issues">
+			   <tbody>
+			   		<tr>
+			   			<th class="p-1 border border-gray-200 text-sm text-left">NO</th>
+			   			<th class="p-1 border border-gray-200 text-sm text-left">Status</th>
+			   			<th class="p-1 border border-gray-200 text-sm text-left">Creation</th>
+			   			<th class="p-1 border border-gray-200 text-sm text-left">Issue Title</th>
+			   			<th class="p-1 border border-gray-200 text-sm text-left">Issue Details</th>
+			   		</tr>
+	                <tr v-for="(issue,index) in issues.slice().reverse()" @click="fatchdata(issue.id)" class="cursor-pointer">
+	                    <td class="p-1 border border-gray-200 text-sm">
+	                        {{ index+1 }}
+	                    </td>
+	                    <td class="p-1 border border-gray-200 text-sm">
+	                        <span class="bg-gray-500 text-white p-1 capitalize rounded" v-if="statuss(issue.status_id)=='Pending'">
+	                        	{{ statuss(issue.status_id) }}
+	                    	</span>
+	                        <span class="bg-gray-600 text-white p-1 capitalize rounded" v-if="statuss(issue.status_id)=='In Progress'">
+	                        	{{ statuss(issue.status_id) }}
+	                    	</span>
+	                        <span class="bg-gray-700 text-white p-1 capitalize rounded" v-if="statuss(issue.status_id)=='Pause'">
+	                        	{{ statuss(issue.status_id) }}
+	                        </span>
+	                        <span class="bg-gray-800 text-white p-1 capitalize rounded" v-if="statuss(issue.status_id)=='Stop'">
+	                        	{{ statuss(issue.status_id) }}
+	                        </span>
+	                        <span class="bg-indigo-500 text-white p-1 capitalize rounded" v-if="statuss(issue.status_id)=='Done'">
+	                        	{{ statuss(issue.status_id) }}
+	                        </span>
+	                        <span class="bg-indigo-600 text-white p-1 capitalize rounded" v-if="statuss(issue.status_id)=='Checked'">
+	                        	{{ statuss(issue.status_id) }}
+	                        </span>
+	                        <span class="bg-indigo-700 text-white p-1 capitalize rounded" v-if="statuss(issue.status_id)=='Completed'">
+	                        	{{ statuss(issue.status_id) }}
+	                        </span>
+	                    </td>
+	                    <td class="p-1 border border-gray-200 text-sm">
+	                        {{ issue.created_at }}
+	                    </td>
+	                    <td class="p-1 border border-gray-200 text-sm">
+	                        {{ issue.title }}
+	                    </td>
+	                    <td class="p-1 border border-gray-200 text-sm">
+	                        {{ issue.desc }}
+	                    </td>
+	                </tr>
+	            </tbody>
+	        </table>
+        </div>
 	</div>
 	<t-modal ref="modal" class="curdmodel">
 	   	<p class="text-xl font-bold uppercase" v-if="singleissue.client">Client: {{ singleissue.client.name }}</p>
@@ -163,7 +162,7 @@
 		    <svg class="fill-current h-4 w-4 inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
 		    	<path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
 		    </svg>
-		    	{{ singleissue.title }}
+		    	<span v-if="singleissue.status">{{ singleissue.status.name }}</span>
 		    <ul class="dropdown-menu absolute hidden text-gray-700 pt-1">
 		      <li class="" v-for="st in status" @click="statusupdate(st.id)">
 		      	<a class="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">{{ st.name }}</a>
@@ -171,8 +170,8 @@
 		    </ul>
 		  </div>
 		</h2>
+		<p> Title : {{ singleissue.title }}</p>
 	    <p v-if="singleissue.issue_type"> Type : {{ singleissue.issue_type.name }}</p>
-	    <p v-if="singleissue.status">Status : {{ singleissue.status.name }}</p>
 	    <p v-if="singleissue.creator">Creator : {{ singleissue.creator.name }}</p>
 	    <p>Created:  {{ singleissue.created_at }}</p>
 	    <vue-editable-element 
@@ -286,10 +285,11 @@ export default {
 	  				}
 	  			})
 
-	  			await axios.post('api/issues/statusupdate',{
+	  			let { data } = await axios.post('api/issues/statusupdate',{
 													    issue_id: this.singleissue.id,
 													    status_id: id,
 													})
+	  			this.singleissue=data;
 	  		}
 	  	},
 	  	async createcommment(e){
@@ -338,8 +338,8 @@ export default {
 	    	}
 	    },
 	    async fatchissue(client){
-		    let res = await axios.get('api/issueforslient/'+client.id)
-		    this.issues=res.data;
+		    let { data } = await axios.get('api/issueforslient/'+client.id)
+		    this.issues=data;
 	    },
 	    async fatchproject(project){
 		    let res = await axios.get('api/issueforprojectsearch/'+project.id)

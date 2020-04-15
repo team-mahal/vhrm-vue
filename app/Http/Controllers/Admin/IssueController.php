@@ -96,6 +96,7 @@ class IssueController extends Controller
         $issue->client;
         $issue->issue_type;
         $issue->creator;
+        $issue->status;
         foreach ($issue->comments as $key => $value) {
             $value->with('user');
         }
@@ -108,6 +109,13 @@ class IssueController extends Controller
         $issue=Issue::find($request->issue_id);
         $issue->status_id=$request->status_id;
         $issue->save();
+        $issue->client;
+        $issue->issue_type;
+        $issue->creator;
+        $issue->status;
+        foreach ($issue->comments as $key => $value) {
+            $value->with('user');
+        }
         return $issue;
     }
 
