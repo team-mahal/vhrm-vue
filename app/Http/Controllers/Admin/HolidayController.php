@@ -63,14 +63,23 @@ class HolidayController extends Controller
     public function store(Request $request)
     {
         Validator::make($request->all(), [
-            'date' => 'required',
+            'start_date' => 'required',
+            'end_date' => 'required',
+            'title' => 'required',
+            'type' => 'required',
         ])->validate();
 
         if ($holiday = Holiday::create([
-            'date' => date('Y-m-d', strtotime($request->date)),
+            'start_date' => date('Y-m-d', strtotime($request->start_date)),
+            'end_date' => date('Y-m-d', strtotime($request->end_date)),
+            'department_id' => $request->department_id,
+            'user_id'       => $request->user_id,
+            'title'         => $request->title,
+            'desc'          => $request->desc,
+            'type'          => $request->type,
         ])) {
             return response()->json([
-                'holiday' => $holiday
+                $holiday
             ]);
         }
     }
