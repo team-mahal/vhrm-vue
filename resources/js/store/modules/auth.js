@@ -19,7 +19,7 @@ export const getters = {
 export const mutations = {
 	[types.SAVE_TOKEN] (state, { token, remember }) {
 		state.token = token
-		Cookies.set('token', token, { expires: remember ? 365 : null })
+		Cookies.set('token', token, { expires: 365 })
 	},
 
 	[types.FETCH_USER_SUCCESS] (state, { user }) {

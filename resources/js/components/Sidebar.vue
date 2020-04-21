@@ -44,10 +44,12 @@
                </div>
             </li>
             <li class="text-center text-blue-900 py-1">
+                <router-link to="/#" exact>
                     <h2 class="text-sm py-4 md:py-0 md:text-4xl">HUB</h2>
+                </router-link>
             </li>
             <li class="my-2 md:my-0">   
-                <router-link to="/" class="flex py-2 justify-center md:md:justify-start pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
+                <router-link to="/#" class="flex py-2 justify-center md:md:justify-start pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
                     <svg aria-hidden="true" data-prefix="fad" data-icon="house-damage" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="w-4 h-4">
                         <g class="fa-group">
                             <path fill="currentColor" d="M512 311.08V496a16 16 0 01-16 16H319.82l-39.92-55.26 104.11-64L236 256l60.11 119.2L192 439.18 229.24 512H80a16 16 0 01-16-16V311c1.78-1.21 3.85-1.89 5.47-3.35L288 115l218.74 192.9c1.55 1.36 3.57 2.02 5.26 3.18z" class="fa-secondary"/>
