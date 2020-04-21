@@ -45,17 +45,31 @@ export default {
 	},
 	mounted () {
 		this.$loading = this.$refs.loading
-		window.onresize = () => {
-	        if(900>=window.innerWidth && window.innerWidth>=800){
-	            let data='m';
-	            this.$store.dispatch('sidebar/setview1',{m:data})
-	        }else if(window.innerWidth>=900 && 1200>=window.innerWidth){
-	            let data='d';
-	            this.$store.dispatch('sidebar/setview1',{m:data})
-	        }
-	    }
+		this.$nextTick(function() {
+	      window.addEventListener('resize', this.getWindowWidth);
+
+	      //Init
+	      this.getWindowWidth()
+	    })
+	},
+	beforeDestroy() {
+	    window.removeEventListener('resize', this.getWindowWidth);
 	},
 	methods: {
+		getWindowWidth(event) {
+			let  clientWidth = document.documentElement.clientWidth
+			if(768>=clientWidth){
+             if(this.ismobile!='m'){
+                 let data='m';
+                 this.$store.dispatch('sidebar/setview1',{m:data})
+             }
+            }else{
+             if(this.ismobile!='d'){
+                    let data='d';
+                    this.$store.dispatch('sidebar/setview1',{m:data})
+                }
+            }
+      	},
 		/**
 		 * Set the application layout.
 		 *

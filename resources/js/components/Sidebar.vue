@@ -43,14 +43,11 @@
                     </svg>
                </div>
             </li>
-            <router-link to="/">
-                <li class="text-center text-blue-900 py-1">
-                    <h2 class="text-sm py-4 md:py-0 md:text-4xl">
-                    HUB</h2>
-                </li>
-            </router-link>
+            <li class="text-center text-blue-900 py-1">
+                    <h2 class="text-sm py-4 md:py-0 md:text-4xl">HUB</h2>
+            </li>
             <li class="my-2 md:my-0">   
-                <a href="#" class="block justify-center hover:justify-start md:md:justify-start py-2 pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400 flex items-center">
+                <router-link to="/" class="flex py-2 justify-center md:md:justify-start pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
                     <svg aria-hidden="true" data-prefix="fad" data-icon="house-damage" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="w-4 h-4">
                         <g class="fa-group">
                             <path fill="currentColor" d="M512 311.08V496a16 16 0 01-16 16H319.82l-39.92-55.26 104.11-64L236 256l60.11 119.2L192 439.18 229.24 512H80a16 16 0 01-16-16V311c1.78-1.21 3.85-1.89 5.47-3.35L288 115l218.74 192.9c1.55 1.36 3.57 2.02 5.26 3.18z" class="fa-secondary"/>
@@ -58,7 +55,7 @@
                         </g>
                     </svg>
                     <span class="w-full inline-block pb-1 md:pb-0 text-sm pl-2 hidden sm:hidden md:block lg:block xl:block">Home</span>
-                </a>
+                </router-link>
             </li>
             <li class="my-2 md:my-0">
                 <router-link to="/district" class="block py-2 justify-center md:md:justify-start pl-1 align-middle text-gray-600 no-underline hover:text-indigo-400">
@@ -146,14 +143,14 @@
     };
 </script>
 
-<style>
-    .router-link-active{
+<style scoped>
+    .router-link-exact-active{
         background: #f1f1f1;
         border-right: 2px solid red;
     }
     .posation{
-        right: -5%;
-        top: 21px;
+        right: 1%;
+        top: 18px;
     }
     .posationm{
         right: 18%;
