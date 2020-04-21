@@ -45,7 +45,7 @@
 			    <a href="#" class="text-md underline text-green-700">View All Users</a>
 			</div>
 			<div class="bg-white shadow" style="height: 25rem;">
-				<vuescroll>
+				<vue-scroll>
 					<div class="flex border-b-2 border-gray-100 p-5 items-center">
 					    <img class="h-12 w-12 rounded-full" src="/avatar/17.jpg">
 					    <div class="text-center md:text-left ml-5 w-1/3">	
@@ -86,7 +86,7 @@
 					    </div>
 					    <div class="text-sm text-gray-500 ml-10 w-1/3 text-right">1 hour ago</div>
 					</div>
-				</vuescroll>
+				</vue-scroll>
 			</div>
 		</div>
 
@@ -95,7 +95,7 @@
 			    <h3 class="text-md font-bold">Total Yearly Impact</h3>
 			</div>
 			<div class="bg-white shadow" style="height: 25rem;">
-				<vuescroll>
+				<vue-scroll>
 					<div class="border-b-2 border-gray-100 p-5 items-center">
 					    <div class="flex justify-between">	
 					     	<h3 class="text-md font-bold">Your Donations</h3>
@@ -132,7 +132,7 @@
 						    <div class="bg-gray-500 text-xs leading-none py-1 text-center text-white" style="width: 45%">45%</div>
 						</div>
 					</div>
-				</vuescroll>
+				</vue-scroll>
 			</div>
 		</div>
 		
