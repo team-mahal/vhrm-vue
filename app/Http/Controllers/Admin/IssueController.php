@@ -72,7 +72,7 @@ class IssueController extends Controller
             'project_id' => $request->project['id'],
             'desc' => $request->desc,
             'issue_type_id' => $request->issue_type_id,
-            'status_id' => 1,
+            'status' => 'Backlog',
             'created_by' => auth()->user()->id
         ]);
 
@@ -84,7 +84,6 @@ class IssueController extends Controller
         }
 
         if ($issue) {
-            $issue->status;
             return response()->json([
                 'issue' => $issue
             ]);
@@ -96,7 +95,6 @@ class IssueController extends Controller
         $issue->client;
         $issue->issue_type;
         $issue->creator;
-        $issue->status;
         foreach ($issue->comments as $key => $value) {
             $value->with('user');
         }
@@ -107,12 +105,11 @@ class IssueController extends Controller
     public function statusupdate(Request $request)
     {
         $issue=Issue::find($request->issue_id);
-        $issue->status_id=$request->status_id;
+        $issue->status=$request->status;
         $issue->save();
         $issue->client;
         $issue->issue_type;
         $issue->creator;
-        $issue->status;
         foreach ($issue->comments as $key => $value) {
             $value->with('user');
         }
@@ -135,7 +132,7 @@ class IssueController extends Controller
         $issue->department_id = isset($request->department_id) ? $request->department_id : $issue->department_id; $request->department_id;
         $issue->desc = isset($request->desc) ? $request->desc : $issue->desc; $request->desc;
         $issue->issue_type_id = isset($request->issue_type_id) ? $request->issue_type_id : $issue->issue_type_id; $request->issue_type_id;
-        $issue->status_id = isset($request->status_id) ? $request->status_id : $issue->status_id; $request->status_id;
+        $issue->status = isset($request->status) ? $request->status : $issue->status; $request->status;
         $issue->updated_at = date('Y-m-d H:i:s');
 
         $issue->client;

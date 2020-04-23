@@ -118,26 +118,14 @@
 	                        {{ index+1 }}
 	                    </td>
 	                    <td class="p-1 border border-gray-200 text-sm">
-	                        <span class="bg-gray-500 text-white p-1 capitalize rounded" v-if="statuss(issue.status_id)=='Pending'">
-	                        	{{ statuss(issue.status_id) }}
+	                        <span class="bg-gray-500 text-white p-1 capitalize rounded" v-if="issue.status=='Backlog'">
+	                        	{{ issue.status }}
 	                    	</span>
-	                        <span class="bg-gray-600 text-white p-1 capitalize rounded" v-if="statuss(issue.status_id)=='In Progress'">
-	                        	{{ statuss(issue.status_id) }}
+	                        <span class="bg-gray-600 text-white p-1 capitalize rounded" v-if="issue.status=='Picket'">
+	                        	{{ issue.status }}
 	                    	</span>
-	                        <span class="bg-gray-700 text-white p-1 capitalize rounded" v-if="statuss(issue.status_id)=='Pause'">
-	                        	{{ statuss(issue.status_id) }}
-	                        </span>
-	                        <span class="bg-gray-800 text-white p-1 capitalize rounded" v-if="statuss(issue.status_id)=='Stop'">
-	                        	{{ statuss(issue.status_id) }}
-	                        </span>
-	                        <span class="bg-indigo-500 text-white p-1 capitalize rounded" v-if="statuss(issue.status_id)=='Done'">
-	                        	{{ statuss(issue.status_id) }}
-	                        </span>
-	                        <span class="bg-indigo-600 text-white p-1 capitalize rounded" v-if="statuss(issue.status_id)=='Checked'">
-	                        	{{ statuss(issue.status_id) }}
-	                        </span>
-	                        <span class="bg-indigo-700 text-white p-1 capitalize rounded" v-if="statuss(issue.status_id)=='Completed'">
-	                        	{{ statuss(issue.status_id) }}
+	                        <span class="bg-gray-700 text-white p-1 capitalize rounded" v-if="issue.status=='Done'">
+	                        	{{ issue.status }}
 	                        </span>
 	                    </td>
 	                    <td class="p-1 border border-gray-200 text-sm">

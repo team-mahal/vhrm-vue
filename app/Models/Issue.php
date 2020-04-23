@@ -71,16 +71,6 @@ class Issue extends Model
                     ],
                 ],
             ],
-            'status' => [
-                "model" => 'App\Models\Status',
-                'foreign_key' => 'status_id',
-                'columns' => [
-                    'name' => [
-                        'searchable' => true,
-                        'orderable' => true,
-                    ],
-                ],
-            ],
         ],
     ];
 
@@ -94,7 +84,7 @@ class Issue extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'desc', 'project_id', 'client_id', 'department_id', 'created_by', 'issue_type_id', 'status_id'
+        'title', 'desc', 'project_id', 'client_id', 'department_id', 'created_by', 'issue_type_id', 'status'
     ];
 
     protected $casts = [
@@ -133,11 +123,6 @@ class Issue extends Model
     public function issue_type()
     {
         return $this->belongsTo("App\Models\IssueType");
-    }
-
-    public function status()
-    {
-        return $this->belongsTo("App\Models\Status");
     }
 
     public function comments()

@@ -41,11 +41,7 @@ class Status extends Model
     | RELATIONS
     |--------------------------------------------------------------------------
     */
-    public function issues()
-    {
-        return $this->belongsTo("App\Models\Issue");
-    }
-
+    
     public function tasks()
     {
         return $this->HasMany("App\Models\Task")->orderBy('pos')->with('user');

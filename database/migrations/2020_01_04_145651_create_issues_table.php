@@ -21,7 +21,7 @@ class CreateIssuesTable extends Migration
             $table->integer('department_id');
             $table->integer('issue_type_id');
             $table->integer('created_by');
-            $table->integer('status_id');
+            $table->enum('status', ['Backlog', 'Picket','Done']);
             $table->timestamps();
         });
     }
