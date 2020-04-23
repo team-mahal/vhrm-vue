@@ -1,30 +1,31 @@
 <template>
 <div>
-<vue-scroll>
-	<div class="flex px-4 pb-8 items-start" style="width: auto;overflow: hidden;"> 
-		<div v-for="statu in status" class="rounded shadow p-2 flex-no-shrink w-auto p-2 mr-3"  style="min-width: 293px!important;">
-			<div class="flex justify-between py-1">
-                <h3 class="text-sm">{{ statu.name }}</h3>
-                <svg class="h-4 fill-current text-grey-dark cursor-pointer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 10a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4zm7 0a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4zm7 0a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4z"></path></svg>
-            </div>
-			<vue-scroll>
-				<div class="fixed-height">
-					<draggable class="list-group" :list="statu.tasks" group="statu.tasks" @add="add(statu.id)" @change="log">
-						<div
-							class="bg-white p-2 rounded mt-1 border-b border-grey cursor-pointer hover:bg-grey-lighter"
-							v-for="(task, index) in statu.tasks"
-							:key="task.id"
-							@click="fetchstatus(task.id)"
-						>
-							{{ task.name }}
-						</div>
-					</draggable>
-				</div>
-			</vue-scroll>
-			<button class="btn btn-block btn-success" slot="footer" @click="addPeople(statu.id)">Add</button>
+	<vue-scroll>
+		<div class="flex px-4 pb-8 items-start" style="width: auto;overflow: hidden;"> 
+			<div v-for="statu in status" class="rounded shadow p-2 flex-no-shrink w-auto p-2 mr-3"  style="min-width: 293px!important;">
+				<div class="flex justify-between py-1">
+	                <h3 class="text-sm">{{ statu.name }}</h3>
+	                <svg class="h-4 fill-current text-grey-dark cursor-pointer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 10a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4zm7 0a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4zm7 0a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4z"></path></svg>
+	            </div>
+				<vue-scroll>
+					<div class="fixed-height">
+						<draggable class="list-group" :list="statu.tasks" group="statu.tasks" @add="add(statu.id)" @change="log">
+							<div
+								class="bg-white p-2 rounded mt-1 border-b border-grey cursor-pointer hover:bg-grey-lighter"
+								v-for="(task, index) in statu.tasks"
+								:key="task.id"
+								@click="fetchstatus(task.id)"
+							>
+								{{ task.name }}
+							</div>
+						</draggable>
+					</div>
+				</vue-scroll>
+				<button class="btn btn-block btn-success" slot="footer" @click="addPeople(statu.id)">Add</button>
+			</div>
 		</div>
-	</div>
-</vue-scroll>
+	</vue-scroll>
+	
 	<t-modal ref="modal" class="curdmodel" v-if="singletask">
 	   	<p>IT Lab Solutions Ltd</p>
 	   	<hr>

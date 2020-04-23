@@ -299,6 +299,14 @@ export default {
 	  	},
 	  	async create (){
 			const { data } = await this.form.post('api/issues')
+			this.form = new Form({
+		    	value: null,
+		    	project:null,
+		    	user:[],
+		    	title:'',
+		    	issue_type_id:'',
+		    	details:''
+			})
 			this.issues.push(data.issue)
 	  	},
 	    async asyncFind(query){
