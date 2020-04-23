@@ -126,19 +126,19 @@
                         },  
                         {
                             name:"Upazilas",
-                            link:'/upazilas'
+                            link:'/upazila'
                         },
                         {
                             name:"Clients",
-                            link:'/clients'
+                            link:'/client'
                         },
                         {
                             name:"Projects",
-                            link:'/projects'
+                            link:'/project'
                         },
                         {
                             name:"Departments",
-                            link:'/departments'
+                            link:'/department'
                         },
                         {
                             name:"Designation",
@@ -146,7 +146,7 @@
                         },
                         {
                             name:"Statuses",
-                            link:'/statuses'
+                            link:'/status'
                         },
                         {
                             name:"Issue Type",
@@ -161,16 +161,16 @@
                             link:'/issues'
                         },
                         {
+                            name:"Issue Board",
+                            link:'/issueboard'
+                        },
+                        {
                             name:"taskcurd",
-                            link:'/Task'
+                            link:'/taskcurd'
                         },
                         {
-                            name:"task",
-                            link:'/tasks'
-                        },
-                        {
-                            name:"task",
-                            link:'/tasks'
+                            name:"Task Board",
+                            link:'/task'
                         },
                         {
                             name:"Holidays",

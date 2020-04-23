@@ -25,6 +25,7 @@ export default [
   { path: '/issues', name: 'issues', component: page('issues.vue') },
   { path: '/issue', name: 'issue', component: page('issue.vue') },
   { path: '/holidays', name: 'holidays', component: page('holidays.vue') },
+  { path: '/issueboard', name: 'issueboard', component: page('issueboard.vue') },
   { path: '/issue-type', name: 'issuetype', component: page('issue-type.vue') },
   { path: '/settings',
     component: page('settings/index.vue'),
