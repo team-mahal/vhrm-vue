@@ -101,6 +101,12 @@ class IssueController extends Controller
         return $issue;
     }
 
+    public function issuebystatus($status='')
+    {
+        $issue=Issue::where('status',$status)->get();
+        return $issue;
+    }
+
     //Status update
     public function statusupdate(Request $request)
     {

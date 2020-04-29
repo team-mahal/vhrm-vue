@@ -69,11 +69,14 @@ Route::group([
     Route::resource('projects', 'Admin\ProjectController')->except([
         'show', 'edit'
     ]);
+
     Route::get('projects/all', 'Admin\ProjectController@all');
 
     Route::resource('issues', 'Admin\IssueController')->except([
        'edit'
     ]);
+
+    Route::get('issuess/{status}', 'Admin\IssueController@issuebystatus');
 
     Route::post('issues/statusupdate', 'Admin\IssueController@statusupdate');
 
