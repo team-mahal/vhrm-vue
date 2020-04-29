@@ -24,15 +24,15 @@
 			</div>
 			<div class="rounded shadow p-2 flex-no-shrink w-auto p-2 mr-3"  style="min-width: 293px!important;">
 				<div class="flex justify-between py-1">
-	                <h3 class="text-sm">BackLog</h3>
+	                <h3 class="text-sm">Picket</h3>
 	                <svg class="h-4 fill-current text-grey-dark cursor-pointer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 10a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4zm7 0a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4zm7 0a1.999 1.999 0 1 0 0 4 1.999 1.999 0 1 0 0-4z"></path></svg>
 	            </div>
 				<vue-scroll>
 					<div class="fixed-height">
-						<draggable class="list-group" :list="backlog" group="backlog" @add="add(backlog.status)" @change="log">
+						<draggable class="list-group" :list="picket" group="picket" @add="add(picket.status)" @change="log">
 							<div
 								class="bg-white p-2 rounded mt-1 border-b border-grey cursor-pointer hover:bg-grey-lighter"
-								v-for="(issue, index) in backlog"
+								v-for="(issue, index) in picket"
 								:key="issue.id"
 								@click="fetchstatus(issue.id)"
 							>
@@ -49,10 +49,10 @@
 	            </div>
 				<vue-scroll>
 					<div class="fixed-height">
-						<draggable class="list-group" :list="backlog" group="backlog" @add="add(backlog.status)" @change="log">
+						<draggable class="list-group" :list="done" group="done" @add="add(done.status)" @change="log">
 							<div
 								class="bg-white p-2 rounded mt-1 border-b border-grey cursor-pointer hover:bg-grey-lighter"
-								v-for="(issue, index) in backlog"
+								v-for="(issue, index) in done"
 								:key="issue.id"
 								@click="fetchstatus(issue.id)"
 							>
@@ -73,7 +73,9 @@
 	import { mapGetters } from 'vuex'
 	export default {
 		data:()=>({
-			backlog:[]
+			backlog:[],
+			picket:[],
+			done:[],
 		}),
 		components: {
 			draggable
@@ -101,8 +103,11 @@
 		async created(){
 			let { data } = await axios('api/issuess/Backlog');
 			this.backlog = data;
-			// let ( data ) = await axios();
-			// let ( data ) = await axios();
+			let picket = await axios('api/issuess/Picket');
+			this.picket = picket.data;
+			
+			let done = await axios('api/issuess/Done');
+			this.done = done.data;
 		}
 	}
 </script>
