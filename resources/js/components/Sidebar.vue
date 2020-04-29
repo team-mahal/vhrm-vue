@@ -161,6 +161,10 @@
                             link:'/issues'
                         },
                         {
+                            name:"Issuedashboard",
+                            link:'/issuedashboard'
+                        },
+                        {
                             name:"Issue Board",
                             link:'/issueboard'
                         },
